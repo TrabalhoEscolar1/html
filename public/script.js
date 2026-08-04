@@ -6,164 +6,116 @@ let API_URL = "";
 
 // ======================================
 // Discontinued Website Popup
+// MUST BE THE FIRST CODE IN THIS FILE
 // ======================================
 
-function showDiscontinuedPopup() {
-
-    // Prevent duplicate popups
-    if (document.getElementById("discontinued-popup")) {
-        return;
-    }
-
-    const style = document.createElement("style");
-
-    style.textContent = `
-        #discontinued-popup {
-            position: fixed;
-            inset: 0;
-            z-index: 999999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        #discontinued-popup .discontinued-card {
-            width: min(440px, 100%);
-            padding: 32px;
-            box-sizing: border-box;
-            text-align: center;
-            color: #171717;
-            background: #ffffff;
-            border-radius: 24px;
-            box-shadow:
-                0 24px 70px rgba(0, 0, 0, 0.35),
-                0 0 0 1px rgba(255, 255, 255, 0.15);
-            animation: discontinued-popup-open 0.28s ease-out;
-        }
-
-        #discontinued-popup .discontinued-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 20px;
-            color: #ffffff;
-            font-size: 34px;
-            font-weight: bold;
-            background: #e53935;
-            border-radius: 50%;
-            box-shadow: 0 10px 25px rgba(229, 57, 53, 0.3);
-        }
-
-        #discontinued-popup h1 {
-            margin: 0 0 12px;
-            font-size: 27px;
-            line-height: 1.2;
-        }
-
-        #discontinued-popup p {
-            margin: 0;
-            color: #666666;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        #discontinued-popup .discontinued-label {
-            display: inline-block;
-            margin-bottom: 18px;
-            padding: 7px 13px;
-            color: #b71c1c;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            background: #ffebee;
-            border-radius: 999px;
-        }
-
-        @keyframes discontinued-popup-open {
-            from {
-                opacity: 0;
-                transform: translateY(18px) scale(0.96);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        body.dark #discontinued-popup .discontinued-card {
-            color: #ffffff;
-            background: #202124;
-        }
-
-        body.dark #discontinued-popup p {
-            color: #b8b8b8;
-        }
-    `;
+(function showDiscontinuedWebsitePopup() {
 
     const popup = document.createElement("div");
 
     popup.id = "discontinued-popup";
 
-    popup.setAttribute("role", "dialog");
-    popup.setAttribute("aria-modal", "true");
     popup.setAttribute(
-        "aria-labelledby",
-        "discontinued-popup-title"
+        "style",
+        `
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 2147483647 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 24px !important;
+        box-sizing: border-box !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: rgba(0, 0, 0, 0.75) !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+        `
     );
 
     popup.innerHTML = `
-        <div class="discontinued-card">
-            <div class="discontinued-icon" aria-hidden="true">
+        <div style="
+            display: block !important;
+            width: 100% !important;
+            max-width: 440px !important;
+            padding: 32px !important;
+            box-sizing: border-box !important;
+            text-align: center !important;
+            color: #171717 !important;
+            background: #ffffff !important;
+            border-radius: 24px !important;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45) !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        ">
+            <div style="
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 64px !important;
+                height: 64px !important;
+                margin: 0 auto 20px !important;
+                color: #ffffff !important;
+                background: #e53935 !important;
+                border-radius: 50% !important;
+                font-size: 34px !important;
+                font-weight: bold !important;
+            ">
                 !
             </div>
 
-            <div class="discontinued-label">
+            <div style="
+                display: inline-block !important;
+                margin-bottom: 18px !important;
+                padding: 7px 13px !important;
+                color: #b71c1c !important;
+                background: #ffebee !important;
+                border-radius: 999px !important;
+                font-size: 12px !important;
+                font-weight: bold !important;
+                letter-spacing: 1px !important;
+                text-transform: uppercase !important;
+            ">
                 Service discontinued
             </div>
 
-            <h1 id="discontinued-popup-title">
+            <h1 style="
+                display: block !important;
+                margin: 0 0 12px !important;
+                color: #171717 !important;
+                font-size: 27px !important;
+                line-height: 1.2 !important;
+            ">
                 This website has been discontinued
             </h1>
 
-            <p>
+            <p style="
+                display: block !important;
+                margin: 0 !important;
+                color: #666666 !important;
+                font-size: 16px !important;
+                line-height: 1.6 !important;
+            ">
                 This service is no longer available and its features
                 can no longer be used.
             </p>
         </div>
     `;
 
-    document.head.appendChild(style);
-    document.body.appendChild(popup);
+    document.documentElement.appendChild(popup);
 
-    // Stop scrolling behind the popup
-    document.body.style.overflow = "hidden";
-}
-
-
-// Display it as soon as the HTML is available
-if (document.readyState === "loading") {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        showDiscontinuedPopup
+    document.documentElement.style.setProperty(
+        "overflow",
+        "hidden",
+        "important"
     );
 
-}
-else {
-
-    showDiscontinuedPopup();
-
-}
-
+})();
 // ======================================
 // Authentication / OAuth Messages
 // ======================================
